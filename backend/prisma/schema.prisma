@@ -17,13 +17,14 @@ datasource db {
 
 model User {
   id       String   @id @default(uuid())
-  email    String   @unique
   name     String?
+  username String   @unique
+  email    String   @unique
   password String
-  posts    Post[]
+  blogs    Blog[]
 }
 
-model Post {
+model Blog {
   id        String   @id @default(uuid())
   title     String
   content   String
