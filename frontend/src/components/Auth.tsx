@@ -1,31 +1,32 @@
 import { SignupInput } from "@rohit_raj-25/inscribecommon";
-import { ChangeEvent, useState} from "react";
+import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
-    const navigate=useNavigate();
-  const [postInputs, setPostInputs] = useState<SignupInput>({
-    email: "",
-    password: "",
-    name: ""
-});
+    const navigate = useNavigate();
+    const [postInputs, setPostInputs] = useState<SignupInput>({
+       
+        email: "",
+        password: ""
+    });
 
-async function sendRequest() {
-  try {
-    const response =await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
-    const jwt=response.data;
-    localStorage.setItem("token",jwt);
-    navigate("/blogs");
-  } catch (error) {
-    alert("Error while signing up")
-  }
-
-
-
-}
-  return <div className="h-screen flex justify-center flex-col">
+    async function sendRequest() {
+        try {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
+            const {jwt} = response.data;
+            console.log(response.data);
+            console.log(jwt)
+            localStorage.setItem("token", jwt);
+            navigate("/blogs");
+        } catch(e) {
+            alert("Error while signing up")
+            // alert the user here that the request failed
+        }
+    }
+    
+    return <div className="h-screen flex justify-center flex-col">
         <div className="flex justify-center">
             <div>
                 <div className="px-10">
@@ -49,7 +50,7 @@ async function sendRequest() {
                     <LabelledInput label="Username" placeholder="harkirat@gmail.com" onChange={(e) => {
                         setPostInputs({
                             ...postInputs,
-                           email: e.target.value
+                            email: e.target.value
                         })
                     }} />
                     <LabelledInput label="Password" type={"password"} placeholder="123456" onChange={(e) => {
