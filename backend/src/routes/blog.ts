@@ -3,11 +3,17 @@ import {sign,verify} from 'hono/jwt'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { createBlogInput,updateBlogInput } from "@rohit_raj-25/inscribecommon";
+import axios from 'axios';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+
+
 
 export const blogRouter=new Hono<{
     Bindings:{
         DATABASE_URL:string,
-        JWT_SECRET:string
+        JWT_SECRET:string,
+        YOUR_API_KEY:string
     },
     Variables:{
         userId:any;
@@ -44,6 +50,7 @@ blogRouter.use("/*",async(c,next)=>{
 
 
 })
+
 
 blogRouter.post('/', async (c) => {
     const body=await c.req.json();
@@ -145,6 +152,7 @@ blogRouter.post('/', async (c) => {
                 id:true,
                 title:true,
                 content:true,
+                
                 author:{
                     select:{
                         name:true
@@ -162,6 +170,32 @@ blogRouter.post('/', async (c) => {
         })
     }
   })
+
+
+
+
+  blogRouter.post("/summarize", async (c) => {
+    const { content } = await c.req.json();
+    
+    try {
+      
+        const genAI = new GoogleGenerativeAI(c.env.YOUR_API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        const prompt = `Give me summary of this blog ${content} `;
+
+        const result = await model.generateContent(prompt);
+        console.log(result.response.text());
+        
+  
+    
+      return  c.json({ summary:result.response.text() });
+    } catch (error) {
+      console.error("Error with Gemini API:", error);
+      return c.json({ error: "Failed to summarize content" },500);
+    }
+  });
+  
   
  
 

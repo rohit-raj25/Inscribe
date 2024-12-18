@@ -5,9 +5,11 @@
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@prisma/client": "^5.20.0",
     "@prisma/extension-accelerate": "^1.2.0",
     "@rohit_raj-25/inscribecommon": "^1.0.3",
+    "axios": "^1.7.9",
     "hono": "^4.6.3",
     "prisma": "^5.20.0"
   },
