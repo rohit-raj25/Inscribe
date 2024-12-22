@@ -98,7 +98,7 @@ export const BlogContent = ({ blog }: { blog: Blog }) => {
                   {blog.author.name || "Anonymous"}
                 </div>
                 <div className="pt-2 text-slate-500">
-                  Just a random phrase about the author's ability to grasp the concept of the universe.
+                  {blog.authorBio || "Author Bio"}
                 </div>
               </div>
             </div>

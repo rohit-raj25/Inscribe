@@ -64,7 +64,7 @@ blogRouter.post('/', async (c) => {
         data:{
             title:body.title,
             content:body.content,
-           
+            authorBio:body.authorBio,
             authorId: authorId
             
         }
@@ -152,6 +152,7 @@ blogRouter.post('/', async (c) => {
                 id:true,
                 title:true,
                 content:true,
+                authorBio:true,
                 
                 author:{
                     select:{
