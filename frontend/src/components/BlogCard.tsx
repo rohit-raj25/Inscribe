@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
 
+
+import { BlogSkeleton } from "./BlogSkeleton";
+import { Appbar } from "./Appbar";
+import axios from "axios";
+
 interface BlogCardProps {
   authorName: string;
   title: string;
@@ -14,6 +19,8 @@ interface AvatarProps {
   size?: "small" | "big";
 }
 
+
+
 export const BlogCard = ({
   id,
   authorName,
@@ -22,6 +29,38 @@ export const BlogCard = ({
   authorBio,
   publishedDate,
 }: BlogCardProps) => {
+
+ 
+  const handleDeleteClick = () => {
+    if (window.confirm(`Are you sure you want to delete the blog: "${blog.title}"?`)) {
+        handleDelete(id, userToken);
+    }
+};
+
+const handleDelete = async (id, userToken) => {
+  try {
+      const response = await axios.delete(`/api/blogs/${blogId}`, {
+          headers: {
+              Authorization: `Bearer ${userToken}`,
+          },
+      });
+
+      alert('Blog deleted successfully');
+      // Optionally, refresh the blogs list or redirect
+  } catch (error) {
+      if ((error as any).response) {
+          if (error.response.status === 403) {
+              alert("You are not authorized to delete this blog.");
+          } else if (error.response.status === 404) {
+              alert("Blog not found.");
+          } else {
+              alert("An error occurred while deleting the blog.");
+          }
+      } else {
+          alert("Unable to connect to the server.");
+      }
+  }
+};
 
 
   return (
@@ -42,8 +81,13 @@ export const BlogCard = ({
           
           {content.slice(0, 100) + "..."}
         </div>
-        <div className="text-slate-500 text-sm font-thin pt-4">
+        <div className="text-slate-500 text-sm font-thin pt-4 flex justify-between">
+          <div>
           {`${Math.ceil(content.length / 100)} minute(s) read`}
+          </div>
+          
+          
+
         </div>
       </div>
     </Link>

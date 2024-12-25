@@ -76,8 +76,9 @@ blogRouter.post('/', async (c) => {
   })
   
   
-  blogRouter.put('/', async (c) => {
+  blogRouter.put('/:id', async (c) => {
     //@ts-ignore
+    const id=await c.req.param("id");
 	const userId = c.get('userId');
     const body=await c.req.json();
     
@@ -87,18 +88,28 @@ blogRouter.post('/', async (c) => {
 
     const blog =await prisma.blog.update({
         where:{
-            id:body.id,
-            authorId:userId
+            id:id,
+            authorId:userId,
+            
         },
         data:{
+            
             title:body.title,
             content:body.content,
+            authorBio:body.authorBio
+        },
+        select:{
+            id:true,
+            title:true,
+            content:true,
+            authorBio:true
         }
     })
 
     return c.json({
         title: blog.title,
-		content: blog.content
+		content: blog.content,
+        authorBio:body.authorBio
     })
   })
 
@@ -196,6 +207,60 @@ blogRouter.post('/', async (c) => {
       return c.json({ error: "Failed to summarize content" },500);
     }
   });
+
+
+  blogRouter.delete('/:id',async (c) => {
+    const id=await c.req.param("id");
+    const userId = c.get("userId");
+
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    try{
+        const blog=await prisma.blog.findUnique({
+            where:{
+                id:id,
+                
+            },
+            select:{
+                authorId:true
+            }
+        });
+
+        if(!blog){
+            return c.json({
+                message:"Blog not found"
+            })
+        }
+
+        if(blog.authorId!==userId){
+            return c.json({
+                message:"You are not authorized to delete this blog"
+            })
+        }
+
+        const deletedBlog=await prisma.blog.delete({
+            where:{
+                id:id
+            }
+        })
+
+        return c.json({
+            message:"Blog deleted successfully",
+            
+        })
+
+
+    }
+    catch(error){
+        return c.json({
+            message:"Error while deleting blog"
+        })
+    }
+
+
+  })
   
   
  

@@ -59,7 +59,7 @@ export const BlogContent = ({ blog }: { blog: Blog }) => {
             <div className="text-slate-500 pt-3">
             Post on 2nd December 2023
             </div>
-            <div className="pt-4">
+            <div className="pt-4 border-b border-slate-400 pb-4">
                 <style>
                 {`
                 .quill .ql-editor > *{
@@ -69,7 +69,8 @@ export const BlogContent = ({ blog }: { blog: Blog }) => {
                      margin-top: 1.5em;
                      font-size: 20px;
                     line-height: 1.5;
-                    color:grey
+                    color:grey;
+                  
                     
                 }
                 `}
