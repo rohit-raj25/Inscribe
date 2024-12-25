@@ -34,7 +34,8 @@ export const Blogs = () => {
            title={blog.title}
            authorBio={blog.authorBio || "Author Bio not available" }
            content={blog.content}
-           publishedDate={"2nd Feb 2024"} 
+           createdAt={blog.createdAt} 
+          //  updatedDate={blog.updatedAt}
           />)}
       </div>
     ``</div>

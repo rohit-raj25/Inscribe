@@ -8,6 +8,8 @@ export interface Blog {
     "title": string;
     "id": number
     "authorBio": string;
+    "createdAt":Date;
+    "updatedAt":Date;
     "author": {
         "name": string
     }

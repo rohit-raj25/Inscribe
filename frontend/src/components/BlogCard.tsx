@@ -10,7 +10,8 @@ interface BlogCardProps {
   title: string;
   content: string;
   authorBio: string;
-  publishedDate: string;
+  createdAt: Date;
+  
   id: number;
 }
 
@@ -27,41 +28,11 @@ export const BlogCard = ({
   title,
   content,
   authorBio,
-  publishedDate,
+  createdAt,
+  
 }: BlogCardProps) => {
-
- 
-  const handleDeleteClick = () => {
-    if (window.confirm(`Are you sure you want to delete the blog: "${blog.title}"?`)) {
-        handleDelete(id, userToken);
-    }
-};
-
-const handleDelete = async (id, userToken) => {
-  try {
-      const response = await axios.delete(`/api/blogs/${blogId}`, {
-          headers: {
-              Authorization: `Bearer ${userToken}`,
-          },
-      });
-
-      alert('Blog deleted successfully');
-      // Optionally, refresh the blogs list or redirect
-  } catch (error) {
-      if ((error as any).response) {
-          if (error.response.status === 403) {
-              alert("You are not authorized to delete this blog.");
-          } else if (error.response.status === 404) {
-              alert("Blog not found.");
-          } else {
-              alert("An error occurred while deleting the blog.");
-          }
-      } else {
-          alert("Unable to connect to the server.");
-      }
-  }
-};
-
+  const formattedDate = new Date(createdAt).toDateString();
+  const plainContent = content.replace(/<[^>]+>/g, "");
 
   return (
     <Link to={`/blog/${id}`}>
@@ -73,13 +44,13 @@ const handleDelete = async (id, userToken) => {
           </div>
           <Circle />
           <div className="pl-2 font-thin text-slate-500 text-sm flex justify-center flex-col">
-            {publishedDate}
+            {formattedDate}
           </div>
         </div>
         <div className="text-xl font-semibold pt-2">{title}</div>
         <div className="text-md font-thin">
           
-          {content.slice(0, 100) + "..."}
+        {plainContent.slice(0, 100) + "..."}
         </div>
         <div className="text-slate-500 text-sm font-thin pt-4 flex justify-between">
           <div>

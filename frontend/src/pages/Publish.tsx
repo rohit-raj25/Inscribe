@@ -19,18 +19,7 @@ export const Publish = () => {
       const {loading,blog:initialBlogData}=useBlog({
         id:id || ""
       });
-    //   if (loading || !blog) {
-    //     return <div>
-    //         <Appbar />
-        
-    //         <div className="h-screen flex flex-col justify-center">
-                
-    //             <div className="flex justify-center">
-    //                 <Spinner />
-    //             </div>
-    //         </div>
-    //     </div>
-    // }
+   
     useEffect(()=>{
         if(!loading && initialBlogData){
             setTitle(initialBlogData.title);
@@ -66,7 +55,7 @@ export const Publish = () => {
             <Appbar />
             <div className="flex justify-center w-full pt-8">
                 <div className="max-w-screen-lg w-full">
-                    {/* Title Input */}
+                   
                     <div className="flex justify-between mb-4">
                         <input
                             onChange={(e) => setTitle(e.target.value)}
@@ -77,7 +66,7 @@ export const Publish = () => {
                         />
                     </div>
 
-                    {/* Author Bio Input */}
+                    
                     <div className="flex justify-between mb-4">
                         <textarea
                             onChange={(e) => setAuthorBio(e.target.value)}
@@ -88,7 +77,7 @@ export const Publish = () => {
                         />
                     </div>
 
-                    {/* Rich Text Editor */}
+                
                     <Editor
                         description={description}
                         onChange={(e) => {
@@ -97,7 +86,7 @@ export const Publish = () => {
                         }}
                     />
 
-                    {/* Publish Button */}
+                    
                     <button
                         onClick={handlePublish}
                         type="submit"

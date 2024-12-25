@@ -6,7 +6,7 @@ import {Signup} from "./pages/Signup"
 import { Publish } from "./pages/Publish"
 
 import  Home from "./pages/Home"
-import { Summarize } from "./pages/Summarize"
+
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/publish" element={<Publish />} />
           <Route path="/publish/:id" element={<Publish />} />
-          <Route path="/summarize" element={<Summarize />} />
+          
         </Routes>
             
       </BrowserRouter>

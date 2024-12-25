@@ -6,21 +6,21 @@ function Home() {
     const navigate = useNavigate(); 
 
     const handleSignUp = () => {
-        navigate("/signup"); // Redirect to the SignUp route
+        navigate("/signup");
       };
 
 
     const handleSignIn = () => {
-        navigate("/signin"); // Redirect to the SignUp route
+        navigate("/signin"); 
       };
     return (
         <div className="min-h-screen bg-blue-50">
-        {/* Appbar */}
+        
         <Appbar />
   
-        {/* Hero Section */}
+        
         <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between px-8 lg:px-32 h-screen">
-          {/* Text Content */}
+          
           <div className="leading-8 lg:w-1/2 text-center lg:text-left mb-36">
             <p className="text-2xl font-medium  font-playwrite-vn-guides text-black ">
               the blog
@@ -39,7 +39,7 @@ function Home() {
         </div>
           
   
-          {/* Centered Bubble */}
+          
           <div className="relative lg:w-1/2 flex items-center justify-center">
             <div className="absolute inset-0 bg-blue-200 w-80 h-80 lg:w-96 lg:h-96 rounded-full -z-10"></div>
             <div className="z-10">

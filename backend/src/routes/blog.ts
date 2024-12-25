@@ -13,7 +13,8 @@ export const blogRouter=new Hono<{
     Bindings:{
         DATABASE_URL:string,
         JWT_SECRET:string,
-        YOUR_API_KEY:string
+        YOUR_API_KEY:string,
+        ADMIN_USER:string
     },
     Variables:{
         userId:any;
@@ -32,6 +33,7 @@ blogRouter.use("/*",async(c,next)=>{
     if(user){
        
         c.set("userId",user.id);
+        console.log(user.id);
          await next();
     }else{
         c.status(403);
@@ -89,14 +91,15 @@ blogRouter.post('/', async (c) => {
     const blog =await prisma.blog.update({
         where:{
             id:id,
-            authorId:userId,
+        authorId:userId || c.env.ADMIN_USER,
             
         },
         data:{
             
             title:body.title,
             content:body.content,
-            authorBio:body.authorBio
+            authorBio:body.authorBio,
+
         }
     })
 
@@ -104,7 +107,8 @@ blogRouter.post('/', async (c) => {
         id:id,
         title: blog.title,
 		content: blog.content,
-        authorBio:body.authorBio
+        authorBio:body.authorBio,
+        updatedAt:blog.updatedAt
     })
   })
 
@@ -129,6 +133,8 @@ blogRouter.post('/', async (c) => {
                         name:true
                     }
                 },
+                createdAt:true,
+                
             }
         })
           
@@ -164,7 +170,8 @@ blogRouter.post('/', async (c) => {
                     select:{
                         name:true
                     }
-                }
+                },
+                updatedAt:true,
             }
             
         })
@@ -229,7 +236,7 @@ blogRouter.post('/', async (c) => {
             })
         }
 
-        if(blog.authorId!==userId){
+        if(blog.authorId!==userId && userId!==c.env.ADMIN_USER){
             return c.json({
                 message:"You are not authorized to delete this blog"
             })
@@ -237,7 +244,7 @@ blogRouter.post('/', async (c) => {
 
         const deletedBlog=await prisma.blog.delete({
             where:{
-                id:id
+                id:id 
             }
         })
 
@@ -260,21 +267,7 @@ blogRouter.post('/', async (c) => {
   
  
 
-//   blogRouter.get('/:id', async (c) => {
-// 	const id =await c.req.param('id');
-// 	const prisma = new PrismaClient({
-// 		datasourceUrl: c.env?.DATABASE_URL,
-// 	}).$extends(withAccelerate());
 
-// 	const blog = await prisma.blog.findUnique({
-// 		where: {
-// 			id
-// 		}
-// 	});
-
-// 	return c.json(blog);
-// })
-  
   
 
   

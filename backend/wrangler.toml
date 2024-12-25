@@ -7,3 +7,4 @@ DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsI
 JWT_SECRET="aasddda"
 
 YOUR_API_KEY="AIzaSyCGHm3L2r1UZKixd1cTnwJbX2qgnw7hj-U"
+ADMIN_USER='0a5591ef-1718-4822-b698-877551568399'

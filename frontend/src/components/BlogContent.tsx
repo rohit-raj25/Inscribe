@@ -33,7 +33,7 @@ export const BlogContent = ({ blog }: { blog: Blog }) => {
       const { summary } = response.data;
       console.log(summary);
       setSummary(summary);
-      // navigate("/summarize", { state: { summary } });
+      
     } catch (error) {
       
       alert("Failed to summarize content. Please try again.");
@@ -57,7 +57,7 @@ export const BlogContent = ({ blog }: { blog: Blog }) => {
           <div className="col-span-8">
             <div className="text-5xl font-extrabold">{blog.title}</div>
             <div className="text-slate-500 pt-3">
-            Post on 2nd December 2023
+            {new Date(blog.createdAt).toDateString()}
             </div>
             <div className="pt-4 border-b border-slate-400 pb-4">
                 <style>
