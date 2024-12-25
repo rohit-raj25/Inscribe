@@ -1,10 +1,5 @@
 import { Link } from "react-router-dom";
 
-
-import { BlogSkeleton } from "./BlogSkeleton";
-import { Appbar } from "./Appbar";
-import axios from "axios";
-
 interface BlogCardProps {
   authorName: string;
   title: string;
@@ -27,7 +22,6 @@ export const BlogCard = ({
   authorName,
   title,
   content,
-  authorBio,
   createdAt,
   
 }: BlogCardProps) => {

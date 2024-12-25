@@ -1,5 +1,5 @@
 import ReactQuill from "react-quill";
-import { useNavigate } from "react-router-dom"; 
+
 import { Blog } from "../hooks";
 import { Appbar } from "./Appbar";
 import { Avatar } from "./BlogCard";
@@ -9,7 +9,7 @@ import axios from "axios";
 import { useState } from "react";
 
 export const BlogContent = ({ blog }: { blog: Blog }) => {
-  const navigate = useNavigate();
+ 
 
   const handleSummarize = async () => {
     try {

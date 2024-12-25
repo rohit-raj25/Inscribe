@@ -5,8 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Editor } from "../components/Editor";
 import { useBlog } from "../hooks";
-import { Spinner } from "../components/Spinner";
-import { use } from "framer-motion/client";
+
 
 export const Publish = () => {
     

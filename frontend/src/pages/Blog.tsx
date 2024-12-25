@@ -1,4 +1,3 @@
-import React from 'react'
 import { useBlog } from '../hooks'
 import { AiTwotoneDelete } from "react-icons/ai";
 import { RiEdit2Fill } from "react-icons/ri";
@@ -6,7 +5,6 @@ import { Link,  useNavigate, useParams } from 'react-router-dom';
 import { BlogContent } from '../components/BlogContent';
 import { Appbar } from '../components/Appbar';
 import { Spinner } from '../components/Spinner';
-import { div } from 'framer-motion/client';
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 
