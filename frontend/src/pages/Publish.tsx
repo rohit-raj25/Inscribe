@@ -51,14 +51,14 @@ export const Publish = () => {
             data: {
                 title,
                 content: description,
-                authorBio, // Include author bio in the payload
+                authorBio, 
             },
             headers:{
                 Authorization: localStorage.getItem("token"),
             },
           });        
         console.log(response);
-        {navigate(`/blog/${response.data.id}`)};
+        navigate(`/blog/${response.data.id}`);
     }
 
     return (

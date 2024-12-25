@@ -97,16 +97,11 @@ blogRouter.post('/', async (c) => {
             title:body.title,
             content:body.content,
             authorBio:body.authorBio
-        },
-        select:{
-            id:true,
-            title:true,
-            content:true,
-            authorBio:true
         }
     })
 
     return c.json({
+        id:id,
         title: blog.title,
 		content: blog.content,
         authorBio:body.authorBio
