@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import {jwtDecode} from "jwt-decode";
 import { Avatar } from "./BlogCard";
 import { CiSearch } from "react-icons/ci";
 
@@ -9,9 +9,14 @@ export const Appbar = ({ value, onSearchChange }: any) => {
   try {
    
   
+    const userToken = localStorage.getItem("token") || "";
+    const decodedToken = userToken ? jwtDecode<{ email?: string }>(userToken) : null;
+    console.log(decodedToken);
     const user = localStorage.getItem("user");
     const User = user ? JSON.parse(user) : "Anonymous";
+    console.log(User.email);
     firstLetter = User.email.charAt(0).toUpperCase();
+    console.log(firstLetter);
   } catch (error) {
     console.error("Error decoding token:", error);
     
