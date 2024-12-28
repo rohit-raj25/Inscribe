@@ -1,30 +1,45 @@
 import { Link } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { Avatar } from "./BlogCard";
+import { CiSearch } from "react-icons/ci";
 
-export const Appbar = () => {
+export const Appbar = ({ value, onSearchChange }: any) => {
   let firstLetter = "";
 
   try {
-    // Get token from localStorage
+   
     const userToken = localStorage.getItem("token") || "";
     const decodedToken = userToken ? jwtDecode<{ email?: string }>(userToken) : null;
-    console.log(decodedToken);
     const user = localStorage.getItem("user");
     const User = user ? JSON.parse(user) : "Anonymous";
-    console.log(User.email);
     firstLetter = User.email.charAt(0).toUpperCase();
-    console.log(firstLetter);
   } catch (error) {
     console.error("Error decoding token:", error);
-       // Fallback to "A" for anonymous users
+    
   }
 
   return (
     <div className="border-b flex justify-between px-10 py-4">
-      <Link to={'/blogs'} className="flex flex-col justify-center cursor-pointer font-semibold text-2xl font-manrope">
-        Inscribe
-      </Link>
+      <div className="flex justify-center items-center gap-20">
+        <Link
+          to={'/blogs'}
+          className="flex flex-col justify-center cursor-pointer font-semibold text-2xl font-manrope"
+        >
+          Inscribe
+        </Link>
+
+        <div className="relative flex items-center">
+          <CiSearch className="absolute left-3 text-slate-500" />
+          <input
+            type="text"
+            placeholder="Search for a blog.."
+            value={value}
+            onChange={(e) => onSearchChange(e.target.value)} 
+            className="p-2 w-60 rounded-full pl-10 focus:outline-none bg-slate-100 font-thin text-base text-slate-500"
+          />
+        </div>
+      </div>
+
       <div>
         <Link to={`/publish`}>
           <button
