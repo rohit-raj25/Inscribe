@@ -171,6 +171,7 @@ blogRouter.post('/', async (c) => {
                         name:true
                     }
                 },
+                createdAt:true,
                 updatedAt:true,
             }
             
