@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+
 import { Avatar } from "./BlogCard";
 import { CiSearch } from "react-icons/ci";
 
@@ -8,8 +8,7 @@ export const Appbar = ({ value, onSearchChange }: any) => {
 
   try {
    
-    const userToken = localStorage.getItem("token") || "";
-    const decodedToken = userToken ? jwtDecode<{ email?: string }>(userToken) : null;
+  
     const user = localStorage.getItem("user");
     const User = user ? JSON.parse(user) : "Anonymous";
     firstLetter = User.email.charAt(0).toUpperCase();
